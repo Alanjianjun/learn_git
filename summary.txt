@@ -3,3 +3,55 @@ wk1:
 
 wk2:
 学习了哈希表，树，堆和图数据结构。哈希表查询O(1),树的前序，中序，后序遍历，堆分为大根堆和小根堆，取最大值或最小值为O(1),图是带环的树结构，面试考的少，讲的较简略
+
+wk3:
+递归模板
+def preorder(self,root):
+  if root:
+    self.traverse_path.append(root.val)
+    self.preorder(root.left)
+    self.preorder(root.right)
+
+def inorder(self,root):
+  if root:
+    self.preorder(root.left)
+    self.traverse_path.append(root.val)
+    self.preorder(root.right)
+
+def postorder(self.root):
+  if root:
+    self.preorder(root.left)
+    self.preorder(root.right)
+    self.traverse_path.append(root.val)
+
+def recursion(level,param1,param2,...):
+ #terminator
+  if level>max_level:
+    process_result
+    return
+
+ #process logic in current level
+  process(level,data,...)
+ #drill down
+  self.recursion(level+1,p1,...)
+
+ # reverse the current level status if needed
+
+#分治代码模板
+
+def divide_conquer(problem,param1,param2,...):
+  #recursion terminator
+  if problem is None:
+    print_result
+    reutrn
+  #prepare data
+  data=prepare_data(problem)
+  subproblems=split_problem(problem,data)
+  #conquer subproblems
+  subresult1=self.divide_conquer(subproblems[0],p1,..)
+  subresult2=self.divide_conquer(subproblems[1],p1,..)
+  subresult3=self.divide_conquer(subproblems[2],p1,..)
+  #process and generate the final result
+  result=process_result(subresult1,subresult2,subresult3)
+
+ #revert the current level states
