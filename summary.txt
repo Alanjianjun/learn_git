@@ -1,4 +1,17 @@
 wk1:
+
+数组 array:查询 O(1) 插入/删除O(n)  尾插o(1) append经过优化也可以o(1),申请大一点空间前面预留一部分空间，头指针左移
+
+链表 linked list：用于LRU cache
+单链表，增删,prepend,append,o(1),lookup o(n)
+循环链表，尾节点next指向head 增删,prepend,append,o(1),lookup o(n)
+双向链表，每个节点有prev和next两个指针. 增删,prepend,append,o(1),lookup o(n)
+
+跳表 skip list：元素必须是有序的，对标二分查找 用于redis，空间换时间 ，索引
+插入/删除/搜索 都是o(log n)
+每次新增或删除都要更新索引，维护成本高
+
+
 学习了快慢指针，夹逼算法和基本数据结构，例如数组，链表，跳表，栈，队列，双端队列，优先队列
 
 wk2:
@@ -55,3 +68,138 @@ def divide_conquer(problem,param1,param2,...):
   result=process_result(subresult1,subresult2,subresult3)
 
  #revert the current level states
+
+
+
+
+====wk4: dfs和bfs====
+
+struct TreeNode{
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+  TreeNode(int x):val(x),left(NULL),right(NULL){}
+}
+
+dfs模版-->二叉树中序遍历
+def dfs(node):
+  if node in visited:
+    return
+  visited.add(node)
+  #process current node
+  #logic here
+  dfs(node.left)
+  dfs(node.right)
+
+多叉树中序遍历
+====python version===
+visited=set()
+def dfs(node,visited):
+  if node in visited:
+    return
+  visited.add(node)
+
+  for next_node in node.children():
+    if not next_node in visited:
+      dfs(next_node,visited)
+
+
+====c++ version====
+map<int,int> visited;
+void dfs(Node* root){
+  if(!root) return;
+  if(visited.count(root->val)){
+    return;//already visited
+  }
+  visited[root->val]=1;
+
+  for(int i=0;i<root->children.size();++i){
+    dfs(root->children[i]);
+  }
+  return ;
+}
+//非递归版，手动维护一个stack
+void dfs(Node* root){
+  map<int,int> visited;
+  if(!root) return;
+  stack<Node*> stackNode;
+  stackNode.push(root);
+
+  while(!stackNode.empty()){
+    Node* node=stackNode.top();
+    stackNode.pop();
+    if(visited.count(node->val)) contine;
+    visited[node->val]=1;
+
+    for(int i=node->children.size()-1;i>=0;--i){
+      stackNode.push(node->children[i]);
+    }
+  }
+  return ;
+}
+
+bfs模版-->一层一层的遍历
+def BFS(graph,start,end):
+  queue=[]
+  quequ.append([start])
+  visited.add(start)
+
+  while queue:
+    node=queue.pop()
+    visited.add(node)
+    process(node)
+    nodes=generate_related_nodes(node)
+    queue.push(nodes)
+
+void bfs(Node* node){
+  map<int,int> visited;
+  if(!root) return;
+  queue<Node*> queueNode;
+  queueNode.push(root);
+  while(!queueNode.empty()){
+    Node* node=queueNode.top();
+    queueNode.pop();
+    if(visited.count(node->val)) continue;
+
+    visited[node->val]=1;
+
+    for(int i=0;i<node->children.size();++i){
+      queueNode.push(node->children[i]);
+    }
+  }
+  return ;
+}
+
+====binary search二分查找====
+left,right=0,len(array)-1
+
+while left<=right:
+  mid=left+(right-left)/2
+  if array[mid]==target:
+    break or return result
+  elif array[mid]<target:
+    left=mid+1
+  else:
+    right=mid-1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
